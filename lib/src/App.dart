@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_casa/src/custom_views/NameBox.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginView.dart';
+import 'package:flutter_chat_casa/src/login_views/RegisterView.dart';
 
 class App extends StatelessWidget{
   

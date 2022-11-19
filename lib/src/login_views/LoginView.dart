@@ -20,7 +20,7 @@ class LoginView extends StatelessWidget{
       appBar: AppBar( //Muestra la barra superior
         title: Text("Ventana login"),
       ),
-      backgroundColor: Colors.amber,
+      //backgroundColor: Colors.white38,
       body: Center( //Alinea el texto al centro
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,15 +29,30 @@ class LoginView extends StatelessWidget{
               iLongitudPalabra: 12, //Se puede o no definir, si no, usa el valor por defecto
               sHelperText: "Inserte su usuario",
               sTitulo: "Usuario",
-              icIzquierda: Icon(Icons.account_circle_outlined),
-              icDerecha: Icon(Icons.check_circle),
+              icIzquierda: Icon(Icons.account_circle_outlined)
             ),
             RFInputText(
               iLongitudPalabra: 12, //Se puede o no definir, si no, usa el valor por defecto
               sHelperText: "Inserte su contraseña",
               sTitulo: "Contraseña",
-              icIzquierda: Icon(Icons.account_circle_outlined),
-              icDerecha: Icon(Icons.check_circle),
+              icIzquierda: Icon(Icons.account_circle_outlined)
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly, //Los coloca a distancia
+              children: [
+                OutlinedButton(
+                    onPressed: () {
+                    print("------------>>>>>>LOGIN");
+                    },
+                    child: Text("Login")
+                ),
+                OutlinedButton(
+                    onPressed: () {
+                      print("------------>>>>>>Registro");
+                    },
+                    child: Text("Registro")
+                ),
+              ],
             ),
           ],
         ),
