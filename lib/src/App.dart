@@ -15,8 +15,13 @@ class App extends StatelessWidget{
     //throw UnimplementedError();
     
     return MaterialApp(
+      //Desde la raiz debemos permitir enrutarlo, para eso esta routes
       title: "Nombre de la app",
-      home: LoginView()
+      initialRoute: '/loginview',
+      routes: {
+        '/loginview': (context) => const LoginView(),
+        '/registerview': (context) => const RegisterView(),
+      },
     );
   }
 }

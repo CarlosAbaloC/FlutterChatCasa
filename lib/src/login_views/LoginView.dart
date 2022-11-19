@@ -48,6 +48,9 @@ class LoginView extends StatelessWidget{
                 ),
                 OutlinedButton(
                     onPressed: () {
+                      //Navigator.of(context).pushNamed('/registerview');
+                      //Con esta opcion no elimina la anterior, se apilan las ventanas
+                      Navigator.of(context).popAndPushNamed('/registerview');
                       print("------------>>>>>>Registro");
                     },
                     child: Text("Registro")
