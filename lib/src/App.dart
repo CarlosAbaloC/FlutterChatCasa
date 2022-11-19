@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_casa/src/custom_views/NameBox.dart';
 
 class App extends StatelessWidget{
   
@@ -20,11 +21,16 @@ class App extends StatelessWidget{
         ),
         backgroundColor: Colors.amber,
         body: Center( //Alinea el texto al centro
-          widthFactor: 0.4,
-          heightFactor: 0.6,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Un texto")
+              NameBox(name: "Fito"),
+              SizedBox(height: 8.0),
+              NameBox(name: "Marea"),
+              SizedBox(height: 8.0),
+              NameBox(name: "Desakato"),
+              SizedBox(height: 8.0),
+              NameBox(name: "La Raiz"),
             ],
           ),
         ),
