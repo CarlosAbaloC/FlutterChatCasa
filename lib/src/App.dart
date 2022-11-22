@@ -16,11 +16,11 @@ class App extends StatelessWidget{
     
     return MaterialApp(
       //Desde la raiz debemos permitir enrutarlo, para eso esta routes
-      title: "Nombre de la app",
+      title: "Chatdar",
       initialRoute: '/loginview',
       routes: {
         '/loginview': (context) => const LoginView(),
-        '/registerview': (context) => const RegisterView(),
+        '/registerview': (context) => RegisterView(),
       },
     );
   }

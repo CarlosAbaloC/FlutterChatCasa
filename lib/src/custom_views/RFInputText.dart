@@ -9,22 +9,40 @@ class RFInputText extends StatelessWidget{
   final String sTitulo;
   final Icon icIzquierda;
   final Icon icDerecha;
-  const RFInputText({Key? key,
+  final bool blIsPasswordInput;
+
+  RFInputText({Key? key,
     this.sValorInicial ="",
     this.iLongitudPalabra =8,
     this.sHelperText="",
     this.sTitulo ="",
     this.icIzquierda=const Icon(Icons.favorite),
     this.icDerecha=const Icon(Icons.check_circle),
+    this.blIsPasswordInput = false,
   }) : super(key:key);
+
+  //El controller y el const no pueden funcionar por lo que se quita del RFInputText
+  final TextEditingController _controller=TextEditingController();
+
+
+  String getText() {
+    return _controller.text;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return TextFormField(
+      controller: _controller,
       cursorColor: Colors.pink,
-      initialValue: this.sValorInicial,
+      //initialValue: this.sValorInicial, //no puedes poner controller y initialvalue a la vez
       maxLength: iLongitudPalabra, //El tamaño maximo del usuario
+      //El bl ahora esta en false, por lo que permite ver las palabras y el autocorrector
+      //En cambio cuando sea una contraseña cambian las tornas true como false false como true
+      obscureText: blIsPasswordInput, //No permite ver las palabras
+      enableSuggestions: !blIsPasswordInput, //Evita las sugerencias
+      autocorrect: !blIsPasswordInput, //Quita el autocorrector
       decoration: InputDecoration(
         icon: icIzquierda,
         labelText: sTitulo,
