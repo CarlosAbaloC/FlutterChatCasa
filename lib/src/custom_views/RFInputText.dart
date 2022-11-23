@@ -13,7 +13,7 @@ class RFInputText extends StatelessWidget{
 
   RFInputText({Key? key,
     this.sValorInicial ="",
-    this.iLongitudPalabra =8,
+    this.iLongitudPalabra =20,
     this.sHelperText="",
     this.sTitulo ="",
     this.icIzquierda=const Icon(Icons.favorite),
