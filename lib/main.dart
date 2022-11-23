@@ -14,6 +14,9 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  /*
+  //Sirve para guardar las credenciales del usuario y si hay cambios en ello
+  //Pero es poco funcional
   FirebaseAuth.instance
       .authStateChanges()
       .listen((User? user) {
@@ -23,6 +26,8 @@ void main() async{
       print('User is signed in!');
     }
   });
+   */
+
 
   runApp(const App());
 }

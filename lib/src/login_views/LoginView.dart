@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_casa/src/custom_views/RFInputText.dart';
 
@@ -13,13 +10,14 @@ class LoginView extends StatelessWidget{
   const LoginView({Key? key}) : super(key:key);
 
 
-  void loginPressed(String emailAddress, String password) async {
+  void loginPressed(String emailAddress, String password, BuildContext context) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailAddress,
           password: password
       );
       print("Me loguee");
+      Navigator.of(context).popAndPushNamed('/home');
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -72,7 +70,7 @@ class LoginView extends StatelessWidget{
                     onPressed: () {
 
                       print("------------>>>>>>LOGIN " + inputUser.getText() + " " + inputPass.getText());
-                      loginPressed(inputUser.getText(), inputPass.getText());
+                      loginPressed(inputUser.getText(), inputPass.getText(), context);
 
                     },
                     child: Text("Login")
