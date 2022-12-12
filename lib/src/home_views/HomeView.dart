@@ -23,18 +23,19 @@ class _HomeViewState extends State<HomeView> {
 
 
 
-
-  void actualizarNombre() {
+  //Este metodo busca la ip del usuario y con ella extrae sus datos
+  // como nombre ciudad pais y perfil
+  actualizarNombre() async {
     //Esto busca un id en concreto, no es dinamico
     //final docRef = db.collection("perfiles").doc("bn6QpIScxrTqA35QR58QYAvtFWA3");
 
     String? idUser = FirebaseAuth.instance.currentUser?.uid;
     final docRef = db.collection("perfiles").
-    doc("idUser").withConverter(fromFirestore: Perfil.fromFirestore,
+    doc(idUser).withConverter(fromFirestore: Perfil.fromFirestore,
         toFirestore: (Perfil perfil, _) => perfil.toFirestore());
 
     //get para descargar then es lo que tiene que hacer despues
-    docRef.get().then(
+    /*docRef.get().then(
           (DocumentSnapshot doc) {
             if(doc.exists) {
               Perfil perfil = perfil.
@@ -49,11 +50,22 @@ class _HomeViewState extends State<HomeView> {
               sNombre = doc.get("name");
             });
       },
+
       onError: (e) => print("Error getting document: $e"),
     );
-    setState(() {
-      sNombre="Esperando";
-    });
+    */
+    final docSnap = await docRef.get();
+    final perfilUsuario = docSnap.data(); // Convert to City object
+
+    if (perfilUsuario != null) {
+      print(perfilUsuario.edad);
+      setState(() {
+        sNombre=perfilUsuario.name!;
+      });
+    } else {
+      print("No such document.");
+    }
+
 
   }
 
@@ -76,6 +88,13 @@ class _HomeViewState extends State<HomeView> {
                   actualizarNombre();
                 },
                 child: Text("Refress")
+            ),
+            if(blIsButtonVisible)OutlinedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).popAndPushNamed("/Login");
+                },
+                child: Text("Logout")
             ),
           ],
         ),

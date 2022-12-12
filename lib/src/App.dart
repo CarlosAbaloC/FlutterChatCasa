@@ -19,10 +19,11 @@ class App extends StatelessWidget{
   String getInitialRoute() {
     //Si es nulo se va a login
     if(FirebaseAuth.instance.currentUser==null) {
-      return '/loginphoneview';
+      return '/loginview';
     }
     //Si hay datos se va al else y el home
     else{
+      FirebaseAuth.instance.signOut();
       return '/home';
     }
   }
