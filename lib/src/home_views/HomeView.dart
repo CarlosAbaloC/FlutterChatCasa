@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
     //Esto busca un id en concreto, no es dinamico
     //final docRef = db.collection("perfiles").doc("bn6QpIScxrTqA35QR58QYAvtFWA3");
 
+    //Busca el id dinamicamente
     String? idUser = FirebaseAuth.instance.currentUser?.uid;
     final docRef = db.collection("perfiles").
     doc(idUser).withConverter(fromFirestore: Perfil.fromFirestore,
