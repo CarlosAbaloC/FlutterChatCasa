@@ -17,7 +17,7 @@ class LoginView extends StatelessWidget{
           password: password
       );
       print("Me loguee");
-      Navigator.of(context).popAndPushNamed('/home');
+      Navigator.of(context).popAndPushNamed('/OnBoarding');
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -79,7 +79,7 @@ class LoginView extends StatelessWidget{
                     onPressed: () {
                       //Navigator.of(context).pushNamed('/registerview');
                       //Con esta opcion no elimina la anterior, se apilan las ventanas
-                      Navigator.of(context).popAndPushNamed('/registerview');
+                      Navigator.of(context).popAndPushNamed('/RegisterView');
                       print("------------>>>>>>Registro");
                     },
                     child: Text("Registro")
