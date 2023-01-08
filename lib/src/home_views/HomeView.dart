@@ -86,26 +86,27 @@ class _HomeViewState extends State<HomeView> {
    
     return Scaffold(
       appBar: AppBar( //Muestra la barra superior
-        title: Text("Chatdar"),
+        title: Text("Rooms"),
       ),
       //backgroundColor: Colors.white38,
       body: Center( //Alinea el texto al centro
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(DataHolder().sMensaje + " " + sNombre),
-            if(blIsButtonVisible)OutlinedButton(
-                onPressed: () {
-                  actualizarNombre();
-                },
-                child: Text("Refress")
+        child: ListView(
+          padding: const EdgeInsets.all(8),
+          children: <Widget> [
+            Container(
+              height: 50,
+              color: Colors.amber[600], //El numero es lo oscuro del color amber
+              child: const Center(child: Text('Entry A')),
             ),
-            if(blIsButtonVisible)OutlinedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.of(context).popAndPushNamed("/Login");
-                },
-                child: Text("Logout")
+            Container(
+              height: 50,
+              color: Colors.amber[500],
+              child: const Center(child: Text('Entry B')),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: const Center(child: Text('Entry C')),
             ),
           ],
         ),
