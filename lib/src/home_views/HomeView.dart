@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_casa/src/custom_views/RFInputText.dart';
 import 'package:flutter_chat_casa/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
@@ -83,6 +84,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    //Con esto añade celdas en funcion de estas filas
+    final List<String> entries = <String>['A','B','C','D','E'];
+    final List<int> colorCodes = <int>[600, 500,100,400,300];
    
     return Scaffold(
       appBar: AppBar( //Muestra la barra superior
@@ -90,6 +94,25 @@ class _HomeViewState extends State<HomeView> {
       ),
       //backgroundColor: Colors.white38,
       body: Center( //Alinea el texto al centro
+        //child: ListView.builder(
+        child: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: entries.length,
+            itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
+              return Container(
+                height: 50,
+                color: Colors.amber[colorCodes[index]],
+                child: Center(child: Text('Entry ${entries[index]}')),
+              );
+            },
+          separatorBuilder: (BuildContext context, int index) { //Solo con separated
+              return const Divider(); //Pone una linea divisiora encre cada uno
+              //return RFInputText(sTitulo: "Divisor del: " + entries[index],); //Devuelve una linea de imput text
+              //Se puede dividir con cualquier objeto, hasta fotos
+          },
+        ),
+
+        /* De manera fija
         child: ListView(
           padding: const EdgeInsets.all(8),
           children: <Widget> [
@@ -98,18 +121,10 @@ class _HomeViewState extends State<HomeView> {
               color: Colors.amber[600], //El numero es lo oscuro del color amber
               child: const Center(child: Text('Entry A')),
             ),
-            Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry B')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: const Center(child: Text('Entry C')),
-            ),
           ],
-        ),
+
+
+        ),*/
       ),
     );
   }
