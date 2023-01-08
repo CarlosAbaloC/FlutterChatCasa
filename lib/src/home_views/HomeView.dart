@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_casa/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
 
@@ -20,6 +21,13 @@ class _HomeViewState extends State<HomeView> {
 
   String sNombre = "---";
   bool blIsButtonVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  }
 
 
 
@@ -56,12 +64,14 @@ class _HomeViewState extends State<HomeView> {
     );
     */
     final docSnap = await docRef.get();
-    final perfilUsuario = docSnap.data(); // Convert to City object
+    //final perfilUsuario = docSnap.data(); // Convert to City object
+    DataHolder().perfil=docSnap.data()!; //Guarda la informacion en un lugar a parte, no se borrara
 
-    if (perfilUsuario != null) {
-      print(perfilUsuario.edad);
+
+    if (DataHolder().perfil!= null) {
+      print(DataHolder().perfil.edad);
       setState(() {
-        sNombre=perfilUsuario.name!;
+        sNombre=DataHolder().perfil.name!;
       });
     } else {
       print("No such document.");
@@ -83,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Bienvenido: " + sNombre),
+            Text(DataHolder().sMensaje + " " + sNombre),
             if(blIsButtonVisible)OutlinedButton(
                 onPressed: () {
                   actualizarNombre();

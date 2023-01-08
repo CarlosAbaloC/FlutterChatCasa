@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../custom_views/RFInputText.dart';
 import '../fb_objects/Perfil.dart';
+import '../singleton/DataHolder.dart';
 
 
 
@@ -33,6 +34,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    DataHolder().sMensaje = "Hola desde ONBOARDING"; //Sobreescribe el texto del internal
+
     checkExistingProfile();
   }
 
@@ -43,7 +46,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
     DocumentSnapshot docSnap = await docRef.get();
     if(docSnap.exists) {
-      Navigator.of(context).popAndPushNamed("/Home");
+      Navigator.of(context).popAndPushNamed("/Home"); //CUANDO CAMBIA DE PANTALLA SOLO SE GUARDA LA INFORMACION DADA AL DATAHOLDER
     }
   }
 
