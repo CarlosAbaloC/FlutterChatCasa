@@ -6,6 +6,8 @@ import 'package:flutter_chat_casa/src/custom_views/RFInputText.dart';
 import 'package:flutter_chat_casa/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
+import '../fb_objects/Room.dart';
+import '../list_items/RoomItem.dart';
 
 class HomeView extends StatefulWidget{
 
@@ -16,18 +18,18 @@ class HomeView extends StatefulWidget{
 }
 
 
-
 class _HomeViewState extends State<HomeView> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   String sNombre = "---";
   bool blIsButtonVisible = true;
+  //late List<QueryDocumentSnapshot<Room>> chatRooms = const[]; //Query para poder trabajar directamente la lista de rooms
+  late List<Room> chatRooms = [];
 
   @override
   void initState() {
     super.initState();
-
-
+    actualizarLista();
   }
 
 
@@ -35,8 +37,6 @@ class _HomeViewState extends State<HomeView> {
   //Este metodo busca la ip del usuario y con ella extrae sus datos
   // como nombre ciudad pais y perfil
   actualizarNombre() async {
-    //Esto busca un id en concreto, no es dinamico
-    //final docRef = db.collection("perfiles").doc("bn6QpIScxrTqA35QR58QYAvtFWA3");
 
     //Busca el id dinamicamente
     String? idUser = FirebaseAuth.instance.currentUser?.uid;
@@ -44,28 +44,7 @@ class _HomeViewState extends State<HomeView> {
     doc(idUser).withConverter(fromFirestore: Perfil.fromFirestore,
         toFirestore: (Perfil perfil, _) => perfil.toFirestore());
 
-    //get para descargar then es lo que tiene que hacer despues
-    /*docRef.get().then(
-          (DocumentSnapshot doc) {
-            if(doc.exists) {
-              Perfil perfil = perfil.
-
-              final data = doc.data() as Map<String, dynamic>;
-              print("--------------->>>>>>>>> " + data.toString() + "   " + doc.get("name") + " " + data["name"]);
-            }
-
-            //PARA ACTUALIAR LAS VARIABLES
-            setState(() {
-              blIsButtonVisible=false;
-              sNombre = doc.get("name");
-            });
-      },
-
-      onError: (e) => print("Error getting document: $e"),
-    );
-    */
     final docSnap = await docRef.get();
-    //final perfilUsuario = docSnap.data(); // Convert to City object
     DataHolder().perfil=docSnap.data()!; //Guarda la informacion en un lugar a parte, no se borrara
 
 
@@ -77,54 +56,52 @@ class _HomeViewState extends State<HomeView> {
     } else {
       print("No such document.");
     }
+  }
 
+  void actualizarLista() async {
+    final docRef = db.collection("rooms") //Para descargarse todos los archivos de rooms, por eso no usa ids ni nada
+        .withConverter(fromFirestore: Room.fromFirestore,
+        toFirestore: (Room room, _) => room.toFirestore());
+
+    final docSnap = await docRef.get(); //Pasa todo lo descargado a una lista, docsnap
+
+    late List<Room> chatRoomsTemporal = [];
+
+
+
+    setState(() {
+      for(int i=0; i<docSnap.docs.length; i++) {
+        chatRooms.add(docSnap.docs[i].data());
+      } //SIN QUERY
+      //chatRooms = docSnap.docs; //METODO PARA EL QUERY
+    });
 
   }
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    //Con esto añade celdas en funcion de estas filas
-    final List<String> entries = <String>['A','B','C','D','E'];
-    final List<int> colorCodes = <int>[600, 500,100,400,300];
+
+
    
     return Scaffold(
       appBar: AppBar( //Muestra la barra superior
         title: Text("Rooms"),
       ),
-      //backgroundColor: Colors.white38,
       body: Center( //Alinea el texto al centro
-        //child: ListView.builder(
         child: ListView.separated(
             padding: const EdgeInsets.all(8),
-            itemCount: entries.length,
+            itemCount: chatRooms.length, //Valores sacados de Firebase
             itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
-              return Container(
-                height: 50,
-                color: Colors.amber[colorCodes[index]],
-                child: Center(child: Text('Entry ${entries[index]}')),
-              );
+              return RoomItem(sTitulo: chatRooms[index].name!,); //Con room directo
+              // return RoomItem(sTitulo: chatRooms[index].data().name!,); //QUERY Coge el dato del nombre de los chats
             },
           separatorBuilder: (BuildContext context, int index) { //Solo con separated
               return const Divider(); //Pone una linea divisiora encre cada uno
-              //return RFInputText(sTitulo: "Divisor del: " + entries[index],); //Devuelve una linea de imput text
-              //Se puede dividir con cualquier objeto, hasta fotos
+
           },
         ),
-
-        /* De manera fija
-        child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: <Widget> [
-            Container(
-              height: 50,
-              color: Colors.amber[600], //El numero es lo oscuro del color amber
-              child: const Center(child: Text('Entry A')),
-            ),
-          ],
-
-
-        ),*/
       ),
     );
   }

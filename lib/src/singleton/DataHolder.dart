@@ -10,7 +10,7 @@ class DataHolder {
   Perfil perfil =Perfil();
 
   DataHolder._internal() {
-    sMensaje ="Mensaje cambiado en internal";
+    sMensaje ="Mensaje cambiado en DataHolder._internal";
 
   }
 
