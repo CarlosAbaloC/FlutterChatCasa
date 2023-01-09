@@ -1,6 +1,7 @@
 
 
 import '../fb_objects/Perfil.dart';
+import '../fb_objects/Room.dart';
 
 //Es una clase comun para guardar todos los datos
 class DataHolder {
@@ -8,6 +9,7 @@ class DataHolder {
 
   String sMensaje = " ";
   Perfil perfil =Perfil();
+  Room selectedChatRoom = Room();
 
   DataHolder._internal() {
     sMensaje ="Mensaje cambiado en DataHolder._internal";

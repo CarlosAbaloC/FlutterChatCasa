@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_casa/src/home_views/ChatView.dart';
 import 'package:flutter_chat_casa/src/home_views/OnBoardingView.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginPhoneView.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginView.dart';
@@ -56,6 +57,7 @@ class App extends StatelessWidget{
         '/LoginView': (context) => const LoginView(),
         '/RegisterView': (context) => RegisterView(),
         '/OnBoarding': (context) => OnBoardingView(),
+        '/ChatView': (context) => ChatView(),
       },
     );
   }

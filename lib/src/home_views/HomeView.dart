@@ -78,6 +78,13 @@ class _HomeViewState extends State<HomeView> {
 
   }
 
+  void listItemShortClicked(int index) {
+    print("DEBUG: " + index.toString());
+    print("DEBUG: " +chatRooms[index].name!); //El index comprueba en que posicion esta
+    DataHolder().selectedChatRoom=chatRooms[index];
+    Navigator.of(context).pushNamed("/ChatView");
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +101,11 @@ class _HomeViewState extends State<HomeView> {
             padding: const EdgeInsets.all(8),
             itemCount: chatRooms.length, //Valores sacados de Firebase
             itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
-              return RoomItem(sTitulo: chatRooms[index].name!,); //Con room directo
+              return RoomItem(
+                sTitulo: chatRooms[index].name!,
+                onShortClick: listItemShortClicked,
+                index: index,//Llama a la funcion de clicar
+              ); //Conexta a Room
               // return RoomItem(sTitulo: chatRooms[index].data().name!,); //QUERY Coge el dato del nombre de los chats
             },
           separatorBuilder: (BuildContext context, int index) { //Solo con separated

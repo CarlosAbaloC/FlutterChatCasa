@@ -6,8 +6,14 @@ import 'package:flutter/material.dart';
 class RoomItem extends StatelessWidget {
 
   final String sTitulo;
+  final Function(int index) onShortClick; //Funcion para llamarle
+  final int index;
 
-  const RoomItem({Key? key, this.sTitulo="Titulo"}) : super(key: key);
+  const RoomItem({Key? key,
+    this.sTitulo="Titulo",
+    required this.onShortClick,
+    required this.index
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +22,9 @@ class RoomItem extends StatelessWidget {
       title: Text(sTitulo),
       subtitle: Text('Secondary text'),
       leading: Icon(Icons.label),
+      onTap: () {
+        onShortClick(index);
+      },
     );
     /* Otra Forma de hacer una lista
          return Container(
