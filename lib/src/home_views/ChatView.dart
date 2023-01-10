@@ -33,15 +33,27 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void descargarTextos() async {
-    chatText.clear(); //Para que no de dupliquen los textos
-
     String path = DataHolder().sCollection_Rooms_Name+"/"+
         DataHolder().selectedChatRoom.uid+"/"+
         DataHolder().sCollection_Texts_Name; //Coge la id desde room y la pone, asi se cambia si es una u otra
 
-    final docRef = db.collection(path) //Para descargarse todos los archivos de rooms, por eso no usa ids ni nada
-        .withConverter(fromFirestore: FBText.fromFirestore,
+    final docRef = db.collection(path). //Para descargarse todos los archivos de rooms, por eso no usa ids ni nada
+        withConverter(fromFirestore: FBText.fromFirestore,
         toFirestore: (FBText fbtext, _) => fbtext.toFirestore());
+
+    docRef.snapshots().listen(
+          (event) => {
+            setState(() {
+              chatText.clear(); //Para que no de dupliquen los textos
+              for(int i=0; i<event.docs.length; i++) {
+                chatText.add(event.docs[i].data());
+              }
+            })
+          },
+          onError: (error) => print("Listen failed: $error"),
+    );
+
+    /*
 
     final docSnap = await docRef.get(); //Pasa todo lo descargado a una lista, docsnap
 
@@ -49,9 +61,8 @@ class _ChatViewState extends State<ChatView> {
       for(int i=0; i<docSnap.docs.length; i++) {
         chatText.add(docSnap.docs[i].data());
       }
-
     });
-
+     */
   }
 
   void listItemShortClicked(int index) {
@@ -74,7 +85,7 @@ class _ChatViewState extends State<ChatView> {
 
     await docRef.add(texto.toFirestore());
 
-    descargarTextos();
+    //descargarTextos(); //No hace falta, lo hace automatico desde la database
   }
 
   @override
