@@ -7,6 +7,7 @@ class Perfil {
   final int? edad;
   final List<String>? friends;
   final List<DocumentReference>? rooms;
+  final String uid;
 
 
   Perfil({
@@ -16,6 +17,7 @@ class Perfil {
     this.edad =0,
     this.friends = const [],
     this.rooms = const [],
+    this.uid = "",
   });
 
   factory Perfil.fromFirestore(
@@ -30,6 +32,7 @@ class Perfil {
       edad: data?['edad'],
       friends: data?['friends'] is Iterable ? List.from(data?['friends']) : null,
       rooms: data?['rooms'] is Iterable ? List.from(data?['rooms']) : null,
+      uid: snapshot.id,
     );
   }
 

@@ -21,6 +21,7 @@ class ChatView extends StatefulWidget{
 class _ChatViewState extends State<ChatView> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   late List<FBText> chatText = [];
+  RFInputText inputMsg = RFInputText(iLongitudPalabra: 200,);
 
   @override
   void initState() {
@@ -32,6 +33,8 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void descargarTextos() async {
+    chatText.clear(); //Para que no de dupliquen los textos
+
     String path = DataHolder().sCollection_Rooms_Name+"/"+
         DataHolder().selectedChatRoom.uid+"/"+
         DataHolder().sCollection_Texts_Name; //Coge la id desde room y la pone, asi se cambia si es una u otra
@@ -53,6 +56,25 @@ class _ChatViewState extends State<ChatView> {
 
   void listItemShortClicked(int index) {
 
+  }
+
+  //Pasos: Busca la room donde esta, crea la coleccion, busca el usuario que escribe, y luego escribe un texto con los tres parametros de la base de datos
+  Future<void> sendPressed() async {
+    String path = DataHolder().sCollection_Rooms_Name+"/"+
+        DataHolder().selectedChatRoom.uid+"/"+
+        DataHolder().sCollection_Texts_Name;
+
+
+    final docRef = db.collection(path);
+    FBText texto = FBText(
+        text: inputMsg.getText(),
+        author: DataHolder().perfil.uid,
+        time: Timestamp.now()
+    );
+
+    await docRef.add(texto.toFirestore());
+
+    descargarTextos();
   }
 
   @override
@@ -86,11 +108,9 @@ class _ChatViewState extends State<ChatView> {
                   },
               ),
             ),
-            RFInputText(iLongitudPalabra: 200,),
+            inputMsg,
             OutlinedButton(
-                onPressed: () {
-
-                },
+                onPressed: sendPressed,
                 child: Text("Send"),
             )
           ],
@@ -98,5 +118,7 @@ class _ChatViewState extends State<ChatView> {
       ),
     );
   }
+
+
 
 }

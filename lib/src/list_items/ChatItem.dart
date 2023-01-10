@@ -19,8 +19,7 @@ class ChatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-                height: 50,
-
+                height: 20, //Espacio entre textos
                 child: Center(child: Text(sText)),
     );
 

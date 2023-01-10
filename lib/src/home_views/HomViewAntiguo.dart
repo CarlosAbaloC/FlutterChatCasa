@@ -113,7 +113,9 @@ class _HomeViewAntiguoState extends State<HomeViewAntiguo> {
           padding: const EdgeInsets.all(8),
           itemCount: entries.length, //Para los valores de arriba
           itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
-            return RoomItem(sTitulo: entries[index],); //Modifica el valor dado por defecto
+            return RoomItem(sTitulo: entries[index],
+               index: index, onShortClick: (int index) {  }, //Valores inutiles para esta capa
+            ); //Modifica el valor dado por defecto
           },
           separatorBuilder: (BuildContext context, int index) { //Solo con separated
             return const Divider(); //Pone una linea divisiora encre cada uno

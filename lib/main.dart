@@ -29,5 +29,6 @@ void main() async{
    */
 
 
+  //Añadir al splash cuando lo creemos DataHolder().perfil=docSnap.data()!;
   runApp(App());
 }
