@@ -1,5 +1,7 @@
 
 
+import 'package:flutter_chat_casa/src/platform/PlatformAdmin.dart';
+
 import '../fb_objects/Perfil.dart';
 import '../fb_objects/Room.dart';
 
@@ -12,10 +14,11 @@ class DataHolder {
   String sMensaje = " ";
   Perfil perfil =Perfil();
   Room selectedChatRoom = Room();
+  late PlatformAdmin platformAdmin;
 
   DataHolder._internal() {
     sMensaje ="Mensaje cambiado en DataHolder._internal";
-
+    platformAdmin = PlatformAdmin();
   }
 
   factory DataHolder() {

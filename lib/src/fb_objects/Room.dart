@@ -5,10 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Room {
   final String uid; //ID Sala
   final String? name;
+  final String? image;
 
   Room({
     this.name ="",
     this.uid="",
+    this.image="",
   });
 
   factory Room.fromFirestore(
