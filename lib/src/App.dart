@@ -8,6 +8,7 @@ import 'package:flutter_chat_casa/src/home_views/OnBoardingView.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginPhoneView.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginView.dart';
 import 'package:flutter_chat_casa/src/login_views/RegisterView.dart';
+import 'package:flutter_chat_casa/src/login_views/SVLogoWait.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'home_views/HomeView.dart';
@@ -48,9 +49,10 @@ class App extends StatelessWidget{
     
     return MaterialApp(
       //Desde la raiz debemos permitir enrutarlo, para eso esta routes
-      title: "Chatdar",
+      //title: "/Splash",
 
-      initialRoute: getInitialRoute(),
+      //initialRoute: getInitialRoute(),
+      initialRoute: "/Splash",
       routes: {
         '/Home': (context) => HomeView(),
         '/LoginPhoneView': (context) => LoginPhoneView(),
@@ -58,6 +60,7 @@ class App extends StatelessWidget{
         '/RegisterView': (context) => RegisterView(),
         '/OnBoarding': (context) => OnBoardingView(),
         '/ChatView': (context) => ChatView(),
+        '/Splash': (context) => SVLogoWait("assets/images/logo2.png"),
       },
     );
   }
