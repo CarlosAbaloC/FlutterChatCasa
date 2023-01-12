@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_casa/src/singleton/DataHolder.dart';
 
 class SVLogoWait extends StatefulWidget {
 
@@ -65,14 +66,15 @@ class _SVLogoWaitState extends State<SVLogoWait> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    DataHolder().platformAdmin.initDisplayData(context);
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: AssetImage(widget.sLogoPath)),
-            const Text("Cargando ...", style: TextStyle(fontSize: 20),),
-            const SizedBox(height: 20), //Creas la caja solo para separarlo
+            Image(image: AssetImage(widget.sLogoPath), height: DataHolder().platformAdmin.dScreen_Width/2,),
+            Text("Cargando ...", style: TextStyle(fontSize: DataHolder().platformAdmin.dScreen_Height/10),),
+            SizedBox(height: DataHolder().platformAdmin.dScreen_Height/20), //Creas la caja solo para separarlo
             const CircularProgressIndicator(
             semanticsLabel: 'Indicador de progreso',
             )

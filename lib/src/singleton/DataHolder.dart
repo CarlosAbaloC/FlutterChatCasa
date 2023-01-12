@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat_casa/src/platform/PlatformAdmin.dart';
 
 import '../fb_objects/Perfil.dart';
@@ -20,6 +21,12 @@ class DataHolder {
     sMensaje ="Mensaje cambiado en DataHolder._internal";
     platformAdmin = PlatformAdmin();
   }
+
+  /*
+  void initPlatformAdminDisplaySetting(BuildContext context) {
+    platformAdmin.initDisplayData(context);
+  }
+   */
 
   factory DataHolder() {
     return _dataHolder; //Data holder simpre devolvera la variable de arriba

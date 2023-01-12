@@ -9,6 +9,7 @@ import 'package:flutter_chat_casa/src/login_views/LoginPhoneView.dart';
 import 'package:flutter_chat_casa/src/login_views/LoginView.dart';
 import 'package:flutter_chat_casa/src/login_views/RegisterView.dart';
 import 'package:flutter_chat_casa/src/login_views/SVLogoWait.dart';
+import 'package:flutter_chat_casa/src/singleton/DataHolder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'home_views/HomeView.dart';
@@ -46,22 +47,44 @@ class App extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     //throw UnimplementedError();
-    
-    return MaterialApp(
-      //Desde la raiz debemos permitir enrutarlo, para eso esta routes
-      //title: "/Splash",
+    MaterialApp materialAppMobile = MaterialApp();
+    if(DataHolder().platformAdmin.isAndroidPlatform() || DataHolder().platformAdmin.isIOSPlatform()) {
+      materialAppMobile = MaterialApp(
+        //Desde la raiz debemos permitir enrutarlo, para eso esta routes
+        //title: "/Splash",
 
-      //initialRoute: getInitialRoute(),
-      initialRoute: "/Splash",
-      routes: {
-        '/Home': (context) => HomeView(),
-        '/LoginPhoneView': (context) => LoginPhoneView(),
-        '/LoginView': (context) => const LoginView(),
-        '/RegisterView': (context) => RegisterView(),
-        '/OnBoarding': (context) => OnBoardingView(),
-        '/ChatView': (context) => ChatView(),
-        '/Splash': (context) => SVLogoWait("assets/images/logo2.png"),
-      },
-    );
+        //initialRoute: getInitialRoute(),
+        initialRoute: "/Splash",
+        routes: {
+          '/Home': (context) => HomeView(),
+          '/LoginPhoneView': (context) => LoginPhoneView(),
+          '/LoginView': (context) => const LoginView(),
+          '/RegisterView': (context) => RegisterView(),
+          '/OnBoarding': (context) => OnBoardingView(),
+          '/ChatView': (context) => ChatView(),
+          '/Splash': (context) => SVLogoWait("assets/images/logo2.png"),
+        },
+      );
+    }
+    else if(DataHolder().platformAdmin.isWebPlatform()) {
+      materialAppMobile = MaterialApp(
+        //Desde la raiz debemos permitir enrutarlo, para eso esta routes
+        //title: "/Splash",
+
+        //initialRoute: getInitialRoute(),
+        initialRoute: "/Splash",
+        routes: {
+          '/Home': (context) => HomeView(),
+          '/LoginPhoneView': (context) => LoginPhoneView(),
+          '/LoginView': (context) => const LoginView(),
+          '/RegisterView': (context) => RegisterView(),
+          '/OnBoarding': (context) => OnBoardingView(),
+          '/ChatView': (context) => ChatView(),
+          '/Splash': (context) => SVLogoWait("assets/images/logo.jpg"), //Permite usar un logo cada uno
+        },
+      );
+    }
+
+    return materialAppMobile;
   }
 }
