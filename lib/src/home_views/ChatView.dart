@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_casa/src/custom_views/RFInputText.dart';
@@ -79,7 +80,8 @@ class _ChatViewState extends State<ChatView> {
     final docRef = db.collection(path);
     FBText texto = FBText(
         text: inputMsg.getText(),
-        author: DataHolder().perfil.uid,
+        //author: DataHolder().perfil.uid,
+        author: FirebaseAuth.instance.currentUser?.uid,
         time: Timestamp.now()
     );
 
