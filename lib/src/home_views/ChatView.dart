@@ -103,7 +103,7 @@ class _ChatViewState extends State<ChatView> {
             Container(
               color: Colors.amber,
               height: 400.0,
-              child: ListView.separated(
+              child: ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: chatText.length, //Valores sacados de Firebase
                   itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
@@ -114,9 +114,12 @@ class _ChatViewState extends State<ChatView> {
                     ); //Conexta a Room
                     // return RoomItem(sTitulo: chatRooms[index].data().name!,); //QUERY Coge el dato del nombre de los chats
                   },
+                /*  ListView.separated
                   separatorBuilder: (BuildContext context, int index) { //Solo con separated
                     return const Divider(); //Pone una linea divisiora encre cada uno
                   },
+
+                 */
               ),
             ),
             inputMsg,
