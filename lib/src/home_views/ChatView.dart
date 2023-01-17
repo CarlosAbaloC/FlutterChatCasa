@@ -34,12 +34,13 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void descargarTextos() async {
+
     String path = DataHolder().sCollection_Rooms_Name+"/"+
         DataHolder().selectedChatRoom.uid+"/"+
         DataHolder().sCollection_Texts_Name; //Coge la id desde room y la pone, asi se cambia si es una u otra
 
-    final docRef = db.collection(path). //Para descargarse todos los archivos de rooms, por eso no usa ids ni nada
-        withConverter(fromFirestore: FBText.fromFirestore,
+    final docRef = db.collection(path).//orderBy("time").limit(50). Una manera de ordenarse
+        withConverter(fromFirestore: FBText.fromFirestore,  //Para descargarse todos los archivos de rooms, por eso no usa ids ni nada
         toFirestore: (FBText fbtext, _) => fbtext.toFirestore());
 
     docRef.snapshots().listen(
@@ -108,11 +109,12 @@ class _ChatViewState extends State<ChatView> {
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: chatText.length, //Valores sacados de Firebase
-                  itemBuilder: (BuildContext context, int index) { //El indice de arriba, asi te dice que pintar en cada posicion
+                  itemBuilder: (BuildContext context, int index) {
                     return ChatItem(
                       sText: chatText[index].text!,
                       onShortClick: listItemShortClicked,
-                      index: index,//Llama a la funcion de clicar
+                      index: index,
+                      sAuthor: chatText[index].author!,//Llama a la funcion de clicar
                     ); //Conexta a Room
                     // return RoomItem(sTitulo: chatRooms[index].data().name!,); //QUERY Coge el dato del nombre de los chats
                   },
