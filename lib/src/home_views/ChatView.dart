@@ -50,6 +50,7 @@ class _ChatViewState extends State<ChatView> {
               for(int i=0; i<event.docs.length; i++) {
                 chatText.add(event.docs[i].data());
               }
+              chatText.sort(compareChatText);
             })
           },
           onError: (error) => print("Listen failed: $error"),
@@ -66,6 +67,14 @@ class _ChatViewState extends State<ChatView> {
     });
      */
   }
+
+  int compareChatText(FBText a, FBText b) {
+    int? res = a.time?.compareTo(b.time!);
+    return res!;
+    //return a.time?.compareTo(b.time!);
+  }
+
+
 
   void listItemShortClicked(int index) {
 
